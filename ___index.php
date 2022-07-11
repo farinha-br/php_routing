@@ -1,37 +1,25 @@
 <?php
-session_start();
+
+$routes = array(
+	"posts" => "post/posts.php",
+    	"send" => "post/send.php",
+    	"get" => "get/get.php",
+    	"sendget" => "get/sendget.php"
+    	"pic" => "views/pic.php",
+    	"about" => "views/about.php"
+);
 
 if (isset($_GET['do'])) {
 	$do = $_GET['do'];
 	
-	switch ($do) {
-		case 'posts':
-			include "post/posts.php";
-			break;
-		
-		case 'send':
-			include "post/send.php";
-			break;
-		
-		case 'get':
-			include "get/get.php";
-			break;
-		
-		case 'sendget':
-			include "get/sendget.php";
-			break;
-		
-		case 'pic':
-			include "views/pic.php";
-			break;
-			
-		case 'about':
-			include "views/about.php";
-			break;
-		
-		default:
-			header ('Location: index.php');
-	}
+	if (array_key_exists($do, $routes)) { 
+		$url = $routes[$do];
+		include $url; 
+	} else {
+		include "menu.php";
+	}	
 } else {
 	include "menu.php";
 }
+
+?>
